@@ -1,13 +1,18 @@
 <template>
-  <router-view></router-view>
+  <div class="menu">
+    <h2>menu</h2>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'App'
+  name: 'io-menu',
+  setup() {
+    return {}
+  }
 })
 </script>
 
-<style lang="less"></style>
+<style scoped></style>

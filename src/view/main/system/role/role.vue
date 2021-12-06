@@ -1,13 +1,18 @@
 <template>
-  <router-view></router-view>
+  <div class="role">
+    <h2>role</h2>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'App'
+  name: 'role',
+  setup() {
+    return {}
+  }
 })
 </script>
 
-<style lang="less"></style>
+<style scoped></style>
