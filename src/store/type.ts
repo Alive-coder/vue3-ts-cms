@@ -1,4 +1,5 @@
 import { ILoginModuleType } from './login/type'
+import { IsystemStateType } from './main/system/type'
 
 export interface IRootType {
   name: string
@@ -6,7 +7,8 @@ export interface IRootType {
 }
 
 export interface ILoginType {
-  login: ILoginModuleType
+  login: ILoginModuleType,
+  system: IsystemStateType
 }
 
 export type IStoreType = IRootType & ILoginType

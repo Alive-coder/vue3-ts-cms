@@ -3,7 +3,12 @@
     <h1 class="title">后台管理系统</h1>
 
     <!-- 表单验证 -->
-    <el-tabs type="border-card" stretch class="border-card" v-model="currentTag">
+    <el-tabs
+      type="border-card"
+      stretch
+      class="border-card"
+      v-model="currentTag"
+    >
       <el-tab-pane name="account">
         <template #label>
           <div class="wrapper">
@@ -58,13 +63,12 @@ export default defineComponent({
     const phoneRef = ref<InstanceType<typeof LoginPhone>>()
     const currentTag = ref('account')
 
-
     const handleLogin = () => {
       // 在 账号登录 组件中验证 (需要判断登录方式)
-      if(currentTag.value === 'account'){
+      if (currentTag.value === 'account') {
         // 账号密码登录
         accountRef.value?.accountLogin(isSaveCode.value)
-      }else{
+      } else {
         // 手机号登录
         phoneRef.value?.phoneLogin()
       }

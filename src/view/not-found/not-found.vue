@@ -9,15 +9,10 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  setup () {
-
-
+  setup() {
     return {}
   }
 })
 </script>
 
-<style scoped>
-
-</style>
-
+<style scoped></style>

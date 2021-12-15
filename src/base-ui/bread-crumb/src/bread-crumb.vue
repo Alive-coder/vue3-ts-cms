@@ -23,10 +23,7 @@ export default defineComponent({
     }
   },
   setup() {
-
-
-    return {
-    }
+    return {}
   }
 })
 </script>

@@ -10,7 +10,7 @@ interface IoRequestInterceptors<T = AxiosResponse> {
 
 // 定义 axios 实例 类型(添加了 拦截器 )
 interface IoRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
-  interceptors?: IoRequestInterceptors<T>,
+  interceptors?: IoRequestInterceptors<T>
   showLoading?: boolean
 }
 

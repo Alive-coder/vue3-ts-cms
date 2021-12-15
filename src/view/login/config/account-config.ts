@@ -1,4 +1,4 @@
-export const  rules = {
+export const rules = {
   name: [
     {
       required: true,
@@ -24,4 +24,3 @@ export const  rules = {
     }
   ]
 }
-

@@ -1,39 +1,49 @@
 <template>
   <div class="user">
     <!-- 检索 -->
-    <page-search :formConfig="formConfig"> </page-search>
+    <page-search
+      :formConfig="formConfig"
+      @handleQueryBtn="handleQueryClick"
+      @handleResetBtn="handleResetClick"
+    ></page-search>
 
-    <div class="content"></div>
+    <!-- 内容 -->
+    <page-content
+      :contentConfig="contentConfig"
+      ref="pageContentRef"
+      pageName="users"
+    ></page-content>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
-import { formConfig } from './config/search.config'
-import PageSearch from '@/components/page-search'
+import { defineComponent, ref } from 'vue'
 
+import { formConfig } from './config/search.config'
+import { contentConfig } from './config/content.config'
+
+import PageSearch from '@/components/page-search'
+import PageContent from '@/components/page-content'
+import { usePageSearch } from '@/hooks/use-page-search'
 
 export default defineComponent({
   name: 'user',
   components: {
-    PageSearch
+    PageSearch,
+    PageContent
   },
   setup() {
-    const store = useStore()
-    store.dispatch('system/getPageListAction', {
-      pageUrl: '/users/list',
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
+    const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
 
     return {
-      formConfig
+      formConfig,
+      contentConfig,
+      handleResetClick,
+      pageContentRef,
+      handleQueryClick
     }
   }
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less"></style>

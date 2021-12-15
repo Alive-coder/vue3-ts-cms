@@ -1,24 +1,22 @@
-class Cache{
-  setCache(key: string, value: any){
+class Cache {
+  setCache(key: string, value: any) {
     window.localStorage.setItem(key, JSON.stringify(value))
   }
 
-  getCache(key: string){
+  getCache(key: string) {
     const res = window.localStorage.getItem(key)
-    if(res){
+    if (res) {
       return JSON.parse(res)
     }
   }
 
-  deleteCache(key: string){
+  deleteCache(key: string) {
     window.localStorage.removeItem(key)
   }
 
-  clearCache(){
+  clearCache() {
     window.localStorage.clear()
   }
 }
 
-
 export default new Cache()
-

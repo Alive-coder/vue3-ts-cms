@@ -1,5 +1,5 @@
 export interface ILoginModuleType {
-  token: string,
-  userInfo: any,
+  token: string
+  userInfo: any
   userMenuList: any
 }

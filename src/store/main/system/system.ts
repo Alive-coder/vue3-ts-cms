@@ -8,28 +8,54 @@ export const system: Module<IsystemStateType, IRootType> = {
   namespaced: true,
   state() {
     return {
-      userList: [],
-      userCount: 0
+      usersList: [],
+      usersCount: 0,
+      roleList: [],
+      roleCount: 0
     }
   },
   actions: {
-    // user 组件通过 actions 获取用户列表
+    // 不同 组件可以通过 actions (传入 不同的 pageName ) 获取不同的数据
     async getPageListAction({ commit }, payload: any) {
+      // 根据不同的 pageName 匹配不同的 url 获取不同的数据
+      let pageName: string = payload.pageName
+      let pageUrl: string = `/${pageName}/list`
+
       // 发送请求获取用户列表
-      const userRes = await getPageListData(payload.pageUrl, payload.queryInfo)
+      const DataRes = await getPageListData(pageUrl, payload.queryInfo)
       // 将 userList 和 totalCount 保存到 system 模块的 state 中
-      const {list, totalCount} = userRes.data
-      commit('saveUserList', list)
-      commit('saveUserCount', totalCount)
+      const { list, totalCount } = DataRes.data
+
+      // 将传入的 pageName 第一个字母大写
+      const pageNameUpper =
+        payload.pageName[0].toUpperCase() + payload.pageName.substr(1)
+
+      commit(`save${pageNameUpper}List`, list)
+      commit(`save${pageNameUpper}Count`, totalCount)
+      // commit('saveUsersList', list)
+      // commit('saveUsersCount', totalCount)
     }
   },
   mutations: {
-    saveUserList(state, userList: any[]){
-      state.userList = userList
+    saveUsersList(state, userList: any[]) {
+      state.usersList = userList
     },
-    saveUserCount(state, userCount: number){
-      state.userCount = userCount
+    saveUsersCount(state, userCount: number) {
+      state.usersCount = userCount
+    },
+    saveRoleList(state, roleList: any[]) {
+      state.roleList = roleList
+    },
+    saveRoleCount(state, roleCount: number) {
+      state.roleCount = roleCount
     }
+  },
 
+  getters: {
+    pageListData(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}List`]
+      }
+    }
   }
 }
