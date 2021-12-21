@@ -4,7 +4,7 @@ import { utcStringFormat } from '@/utils/formatTime'
 
 export default function registerProps(app: App) {
   app.config.globalProperties.$filters = {
-    formatUtcTime(value: string){
+    formatUtcTime(value: string) {
       return utcStringFormat(value)
     }
   }

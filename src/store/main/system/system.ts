@@ -11,7 +11,9 @@ export const system: Module<IsystemStateType, IRootType> = {
       usersList: [],
       usersCount: 0,
       roleList: [],
-      roleCount: 0
+      roleCount: 0,
+      goodsList: [],
+      goodsCount: 0
     }
   },
   actions: {
@@ -48,6 +50,12 @@ export const system: Module<IsystemStateType, IRootType> = {
     },
     saveRoleCount(state, roleCount: number) {
       state.roleCount = roleCount
+    },
+    saveGoodsList(state, goodsList: any[]) {
+      state.goodsList = goodsList
+    },
+    saveGoodsCount(state, goodsCount: number) {
+      state.goodsCount = goodsCount
     }
   },
 
@@ -55,6 +63,11 @@ export const system: Module<IsystemStateType, IRootType> = {
     pageListData(state) {
       return (pageName: string) => {
         return (state as any)[`${pageName}List`]
+      }
+    },
+    pageListCount(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`]
       }
     }
   }

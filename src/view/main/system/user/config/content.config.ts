@@ -23,7 +23,7 @@ export const contentConfig: IcontentConfigType = {
       slotName: 'updateAt'
     },
     {
-      label: '编辑',
+      label: '操作',
       minWidth: '150',
       slotName: 'edit'
     }

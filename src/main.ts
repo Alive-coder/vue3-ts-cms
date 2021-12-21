@@ -24,7 +24,7 @@ setUpStore()
 app.use(router).use(store)
 // 将 ElementPlus 设置成中文
 app.use(ElementPlus, {
-  locale: zhCn,
+  locale: zhCn
 })
 
 app.mount('#app')

@@ -7,7 +7,7 @@ export interface IRootType {
 }
 
 export interface ILoginType {
-  login: ILoginModuleType,
+  login: ILoginModuleType
   system: IsystemStateType
 }
 

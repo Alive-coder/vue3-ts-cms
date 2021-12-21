@@ -1,6 +1,11 @@
 <template>
   <div class="page-content">
-    <i-o-table v-bind="contentConfig" :listData="dataList">
+    <i-o-table
+      v-bind="contentConfig"
+      :listData="dataList"
+      :listCount="dataCount"
+      v-model:page="pageInfo"
+    >
       <!--头部插槽 -->
       <template #headerHandler>
         <el-button type="primary" size="medium" plain>
@@ -35,12 +40,23 @@
           <i class="iconfont icon-shanchu"></i>删除
         </el-button>
       </template>
+
+        <!-- 动态插槽 -->
+       <template
+        v-for="item in otherPropSlotsName"
+        :key="item.prop"
+        #[item.slotName]="scope"
+      >
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
+      </template>
     </i-o-table>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref, watch } from 'vue'
 import IOTable from '@/base-ui/table'
 import { useStore } from '@/store'
 
@@ -62,19 +78,22 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const store = useStore()
+
+    // 双向绑定页面信息
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+    watch(pageInfo, () => getPageData())
+
     // 发送请求获取用户列表
     const getPageData = (queryData: any = {}) => {
-      console.log('halskjlsdfjl')
       store.dispatch('system/getPageListAction', {
         // pageUrl: '/users/list',
         pageName: props.pageName,
         queryInfo: {
-          offset: 0,
-          size: 10,
+          offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+          size: pageInfo.value.pageSize,
           ...queryData
         }
       })
-      console.log('=======')
     }
     getPageData()
 
@@ -82,10 +101,28 @@ export default defineComponent({
     const dataList = computed(() => {
       return store.getters['system/pageListData'](props.pageName)
     })
+    // 拿到 列表个数
+    const dataCount = computed(() => {
+      return store.getters['system/pageListCount'](props.pageName)
+    })
+
+    // 拿到除了固定的插槽以外的其他插槽名字
+    const otherPropSlotsName = props.contentConfig?.propList.filter(
+      (item: any) => {
+        if(item.slotName === 'status') return false
+        if(item.slotName === 'edit') return false
+        if(item.slotName === 'createAt') return false
+        if(item.slotName === 'updateAt') return false
+        return true
+      }
+    )
 
     return {
       dataList,
-      getPageData
+      dataCount,
+      getPageData,
+      pageInfo,
+      otherPropSlotsName
     }
   }
 })
